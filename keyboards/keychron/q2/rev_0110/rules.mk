@@ -10,7 +10,7 @@ BOOTLOADER = stm32-dfu
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
-CONSOLE_ENABLE = no	# Console for debug
+CONSOLE_ENABLE = no	    # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
@@ -27,3 +27,9 @@ OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 
 DYNAMIC_MACRO_ENABLE = yes
 KEY_LOCK_ENABLE = yes
+LTO_ENABLE = yes
+UCIS_ENABLE = no
+
+mkfile_dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+
+include $(mkfile_dir)/keymaps/$(KEYMAP)/qmk-vim/rules.mk
