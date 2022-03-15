@@ -123,13 +123,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		qk_ucis_start();
             }
             return false;  // Skip all further processing of this key
-	#endif
+    #endif
         case TOG_VIM:
-	    if (record->event.pressed) {
-		toggle_vim_mode();
+            if (record->event.pressed) {
+                toggle_vim_mode();
             }
             return false;  // Skip all further processing of this key
-	 
+
     }
     if (!process_vim_mode(keycode, record)) {
         return false;
@@ -171,6 +171,20 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
         }
     }
+}
+
+bool dip_switch_update_user(uint8_t index, bool active) {
+    if (index == 0) {
+#ifdef VIM_FOR_ALL
+        if (active) {
+            disable_vim_for_mac();
+        }
+        else {
+            enable_vim_for_mac();
+        }
+#endif
+    }
+    return true;
 }
 
 void keyboard_post_init_user(void) {
