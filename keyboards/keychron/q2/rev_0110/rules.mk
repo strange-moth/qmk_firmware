@@ -31,5 +31,4 @@ LTO_ENABLE = yes
 UCIS_ENABLE = no
 
 mkfile_dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-
 include $(mkfile_dir)/keymaps/$(KEYMAP)/qmk-vim/rules.mk

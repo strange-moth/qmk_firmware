@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 #include "qmk-vim/src/vim.h"
+#include "qmk-vim/src/modes.h"
 
 enum layers{
     MAC_BASE,
@@ -101,6 +102,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #include "ucis.h"
 #endif
 
+keyrecord_t dummy_up_keyrecord = {.event = {.pressed = false}};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_MISSION_CONTROL:
@@ -119,8 +122,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;  // Skip all further processing of this key
 	#ifdef UCIS_ENABLE
         case UC_COMP:
-	    if (record->event.pressed) {
-		qk_ucis_start();
+            if (record->event.pressed) {
+                qk_ucis_start();
             }
             return false;  // Skip all further processing of this key
     #endif
@@ -129,7 +132,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 toggle_vim_mode();
             }
             return false;  // Skip all further processing of this key
-
+        //case KC_LOCK:
+            //if (record->event.pressed) {
+                //isLocking = true; // Turn the board red
+            //}
+            //return true;
     }
     if (!process_vim_mode(keycode, record)) {
         return false;
@@ -137,38 +144,85 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true; // Process all other keycodes normally
 }
 
+bool isRecording = false;
+
+void dynamic_macro_record_start_user(void) {
+    isRecording = true;
+}
+
+void dynamic_macro_record_end_user(int8_t direction) {
+    isRecording = false;
+}
+
 #define LED_SHIFT_LEFT 44
 #define LED_SHIFT_RIGHT 55
+#define LED_MACRO_1 29
+#define LED_MACRO_2 43
+#define LED_VIM_INDICATOR 14
+
+keypos_t led_index_to_keypos(uint8_t index) {
+
+    if (index == 65) {
+        return (keypos_t){12, 2};
+    }
+
+    uint8_t greebled_index = index + (index<42 ? 0 : index<45 ? 1 : index<55 ? 2 : index<60 ? 3 : index<61 ? 6 : index<66 ? 9 : 8);
+
+    return (keypos_t){greebled_index % 15, greebled_index / 15};
+}
 
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (led_min <= LED_VIM_INDICATOR && led_max >= LED_VIM_INDICATOR && vim_mode_enabled()) {
+        switch (get_vim_mode()) {
+            case NORMAL_MODE:
+                rgb_matrix_set_color(LED_VIM_INDICATOR, RGB_GOLD);
+                break;
+            case INSERT_MODE:
+                rgb_matrix_set_color(LED_VIM_INDICATOR, RGB_CORAL);
+                break;
+            case VISUAL_MODE:
+            case VISUAL_LINE_MODE:
+                rgb_matrix_set_color(LED_VIM_INDICATOR, RGB_TEAL);
+                break;
+            case UNKNOWN_MODE:
+                rgb_matrix_set_color(LED_VIM_INDICATOR, RGB_PURPLE);
+        }
+    }
+
     // red lights on caps lock
     if (host_keyboard_led_state().caps_lock) {
         if (led_min <= LED_SHIFT_LEFT && led_max >= LED_SHIFT_LEFT) {
-	    rgb_matrix_set_color(LED_SHIFT_LEFT, RGB_RED);
+            rgb_matrix_set_color(LED_SHIFT_LEFT, RGB_RED);
         };
         if (led_min <= LED_SHIFT_RIGHT && led_max >= LED_SHIFT_RIGHT) {
-	    rgb_matrix_set_color(LED_SHIFT_RIGHT, RGB_RED);
+            rgb_matrix_set_color(LED_SHIFT_RIGHT, RGB_RED);
         };
-        /*for (uint8_t i = led_min; i <= led_max; i++) {
-            if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
-                rgb_matrix_set_color(i, RGB_RED);
-            }
-        }*/
     }
 
-    // layer indicator with only configured keys
-    if (get_highest_layer(layer_state) > 1) {
-        uint8_t layer = get_highest_layer(layer_state);
+    // macro record indicator
+    if (isRecording) {
+        if (led_min <= LED_MACRO_1 && led_max >= LED_MACRO_1) {
+            rgb_matrix_set_color(LED_MACRO_1, RGB_GOLD);
+        };
+        if (led_min <= LED_MACRO_2 && led_max >= LED_MACRO_2) {
+            rgb_matrix_set_color(LED_MACRO_2, RGB_GOLD);
+        };
+    }
 
-        for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
-            for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
-                uint8_t index = g_led_config.matrix_co[row][col];
+    uint8_t layer = get_highest_layer(layer_state);
 
-                if (index >= led_min && index <= led_max && index != NO_LED &&
-                        keymap_key_to_keycode(layer, (keypos_t){col,row}) > KC_TRNS) {
-                    rgb_matrix_set_color(index, RGB_GREEN);
-                }
-            }
+    for (uint8_t index = led_min; index <= led_max; index++) {
+        keypos_t keypos = led_index_to_keypos(index);
+
+        // highlight all locked keys
+        uint16_t kc = keymap_key_to_keycode(layer, keypos);
+        if (!process_key_lock(&kc, &dummy_up_keyrecord)) {
+            rgb_matrix_set_color(index, RGB_GOLD);
+        }
+
+        // layer indicator with only configured keys
+        else if (layer > 1 && kc > KC_TRNS) {
+            rgb_matrix_set_color(index, RGB_GREEN);
         }
     }
 }
