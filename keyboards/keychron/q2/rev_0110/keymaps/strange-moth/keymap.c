@@ -71,32 +71,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(_FN1W),MO(_FN2), KC_LEFT, KC_DOWN, KC_RGHT),
 
     [_HRM] = LAYOUT_ansi_67(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,          KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,          KC_TRNS,
-        KC_TRNS, KC_TRNS, HM_LALT, HM_LGUI, HM_LCTL, KC_TRNS, KC_TRNS, HM_RCTL, HM_RGUI, HM_RALT, KC_TRNS, KC_TRNS,           KC_TRNS,          KC_TRNS,
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, HM_LSFT, KC_TRNS, HM_RSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,          _______,
+        _______, _______, HM_LALT, HM_LGUI, HM_LCTL, _______, _______, HM_RCTL, HM_RGUI, HM_RALT, _______, _______,           _______,          _______,
+        _______,          _______, _______, _______, HM_LSFT, _______, HM_RSFT, _______, _______, _______, _______,           _______, _______,
+        _______, _______, _______,                            _______,                            _______, _______,  _______, _______, _______, _______),
 
     [_FN1M] = LAYOUT_ansi_67(
-        KC_ESC,  KC_BRID, KC_BRIU, KC_MCTL, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD,  KC_VOLU, KC_TRNS,          KC_LOCK,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,          DM_REC1,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,          DM_REC2,
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS, KC_PGUP,
-        KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_TRNS,  KC_TRNS, KC_HOME, KC_PGDN, KC_END),
+        KC_ESC,  KC_BRID, KC_BRIU, KC_MCTL, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD,  KC_VOLU, _______,          KC_LOCK,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,          DM_REC1,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,           _______,          DM_REC2,
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,           _______, KC_PGUP,
+        _______, _______, _______,                            _______,                            _______, _______,  _______, KC_HOME, KC_PGDN, KC_END),
 
     [_FN1W] = LAYOUT_ansi_67(
-        KC_ESC,  KC_BRID, KC_BRIU, KC_TASK, KC_FLXP, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD,  KC_VOLU, KC_TRNS,          KC_LOCK,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,          DM_REC1,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,          DM_REC2,
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS, KC_PGUP,
-        KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_TRNS,  KC_TRNS, KC_HOME, KC_PGDN, KC_END),
+        KC_ESC,  KC_BRID, KC_BRIU, KC_TASK, KC_FLXP, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD,  KC_VOLU, _______,          KC_LOCK,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,          DM_REC1,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,           _______,          DM_REC2,
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,           _______, KC_PGUP,
+        _______, _______, _______,                            _______,                            _______, _______,  _______, KC_HOME, KC_PGDN, KC_END),
 
     [_FN2] = LAYOUT_ansi_67(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,  KC_TRNS,          KC_LOCK,
-        RGB_TOG, RGB_MOD, RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,          DM_PLY1,
-        KC_TRNS, RGB_RMOD,RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,          DM_PLY2,
-        KC_CAPS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, UC_MOD,  KC_TRNS,           KC_CAPS, KC_PGUP,
-        TG(_HRM),KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, TOG_VIM,  KC_TRNS, KC_HOME, KC_PGDN, KC_END),
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,  _______,          KC_LOCK,
+        RGB_TOG, RGB_MOD, RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, _______, _______, _______, _______, _______, _______,  _______, _______,          DM_PLY1,
+        _______, RGB_RMOD,RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, _______, _______, _______, _______, _______, _______,           _______,          DM_PLY2,
+        KC_CAPS,          _______, _______, _______, _______, _______, _______, _______, _______, UC_MOD,  _______,           KC_CAPS, KC_PGUP,
+        TG(_HRM),_______, _______,                            _______,                            _______, TOG_VIM,  _______, KC_HOME, KC_PGDN, KC_END),
 };
 #ifdef UCIS_ENABLE
 #include "ucis.h"
